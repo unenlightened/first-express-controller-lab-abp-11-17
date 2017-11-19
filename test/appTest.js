@@ -10,24 +10,24 @@ const app = require('../server');
 
 chai.use(chaiHttp);
 
-describe("app.js", function(){
-  describe('/', function(){
-    it('responds with a 200', function(done){
-      chai.request(app)
-        .get("/")
-        .end(function(err, res){          
-          expect(res).to.have.status(200);
-          done();
-        });
-    });    
+// describe("app.js", function(){
+//   describe('/', function(){
+//     it('responds with a 200', function(done){
+//       chai.request(app)
+//         .get("/")
+//         .end(function(err, res){          
+//           expect(res).to.have.status(200);
+//           done();
+//         });
+//     });    
 
-    it('sends "Hello, World!" as the response', function(done){
-      chai.request(app)
-        .get("/")
-        .end(function(err, res){
-          expect(res.text).to.equal('Hello, World!');
-          done();
-        });
-    });
-  });  
-});
+//     it('sends "Hello, World!" as the response', function(done){
+//       chai.request(app)
+//         .get("/")
+//         .end(function(err, res){
+//           expect(res.text).to.equal('Hello, World!');
+//           done();
+//         });
+//     });
+//   });  
+// });
