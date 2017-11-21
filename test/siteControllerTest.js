@@ -16,11 +16,7 @@ const server = app.listen(3001)
 chai.use(chaiHttp);
 chai.use(sinonChai);
 
-describe("SiteController.js", function(){
-  it("defines and exports the SiteController object", function(){
-    expect(SiteController).to.exist
-  })
-  
+describe("SiteController.js", function(){  
   it("defines an Index function on SiteController", function(){
     expect(SiteController.Index).to.be.a("function")
   })
@@ -53,6 +49,10 @@ describe("SiteController.js", function(){
     })
   })
 
+  it("defines an About function on SiteController", function(){
+    expect(SiteController.About).to.be.a("function")
+  })
+
   describe("GET /about routing to SiteController.About", function(){
     it("routes '/about' to SiteController.About", function(done){
       chai.request(app)
@@ -80,6 +80,10 @@ describe("SiteController.js", function(){
         });
     })
   })  
+
+  it("defines an Contact function on SiteController", function(){
+    expect(SiteController.Contact).to.be.a("function")
+  })
 
   describe("GET /contact routing to SiteController.Contact", function(){
     it("routes '/contact' to SiteController.Contact", function(done){

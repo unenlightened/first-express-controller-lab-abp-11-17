@@ -1,18 +1,6 @@
 const SiteController = {};
 
-SiteController.Index = function(req, resp){
+// Define Your Controller Actions for SiteController Below
 
-  resp.render("site/index")
-};
-
-SiteController.About = function(req, resp){
-
-  resp.render("site/about")
-};
-
-SiteController.Contact = function(req, resp){
-
-  resp.render("site/contact")
-};
 
 module.exports = SiteController;
