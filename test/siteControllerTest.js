@@ -79,6 +79,34 @@ describe("SiteController.js", function(){
           done()
         });
     })
+  })  
+
+  describe("GET /contact routing to SiteController.Contact", function(){
+    it("routes '/contact' to SiteController.Contact", function(done){
+      chai.request(app)
+        .get("/contact")
+        .end(function(err, res){  
+          expect(res.text).to.contain("Contact Page")
+          done();
+        }); 
+    })
+  })
+
+  describe("GET /contact routing to SiteController.Contact", function(){
+    it("routes '/contact' to SiteController.Contact", function(done){
+      const spy = sinon.spy(app, 'render');
+      
+      chai.request(app)
+        .get("/contact")
+        .end(function(err, res){
+          const viewRendered = spy.getCall(0).args[0];
+      
+          expect(viewRendered).to.be.eql('site/contact');
+      
+          spy.restore();
+          done()
+        });
+    })
   })
 
 })

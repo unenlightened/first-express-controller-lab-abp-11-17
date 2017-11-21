@@ -12,6 +12,7 @@ SiteController.About = function(req, resp){
 
 SiteController.Contact = function(req, resp){
 
+  resp.render("site/contact")
 };
 
 module.exports = SiteController;
