@@ -2,8 +2,11 @@
 
 ## Objectives
 
-1. Build an Express Controller.
-2. Render a View
+1. Build an Express controller.
+2. Define 3 actions for the controller.
+3. Render the appropriate views in each action.
+4. Mount the controller in the app.
+5. Draw routes for the app to the controller actions.
 
 ## Instructions
 
