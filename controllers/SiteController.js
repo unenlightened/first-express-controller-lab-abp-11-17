@@ -6,7 +6,7 @@ SiteController.Index = function(req, resp){
 };
 
 SiteController.About = function(req, resp){
-
+  resp.send("Hi.")
 };
 
 SiteController.Contact = function(req, resp){

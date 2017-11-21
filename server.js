@@ -7,9 +7,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
 
-if(process.env.NODE_ENV === 'test'){
-  app.listen(3001)
-} else {
+if(!(process.env.NODE_ENV === 'test')){
   if (process.env["LEARNING_ENVIRONMENT"]){  
     util.inspect.styles.string = 'blue';
     const colorizedTestingAddress = util.inspect(`http://${process.env.HOST_IP}:${process.env.RAILS_PORT}`, { colors: true }).replace(/['"]/g, '');
