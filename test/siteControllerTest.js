@@ -115,9 +115,9 @@ describe("SiteController.js", function(){
            .to.be.a("function")
     })
 
-    it("routes '/about' to SiteController.Contact in app.js", function(done){
+    it("routes '/contact' to SiteController.Contact in app.js", function(done){
       chai.request(app)
-        .get("/about")
+        .get("/contact")
         .end(function(err, res){  
           expect(SiteControllerContact, "Is app.get('/contact') handled by SiteController.Contact?")
               .to.have.been.calledOnce
