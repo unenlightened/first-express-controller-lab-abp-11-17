@@ -10,18 +10,18 @@ const sinon = require('sinon');
 const sinonChai = require("sinon-chai");
 const SiteController = require("../controllers/SiteController.js");
 
-let SiteControllerAboutSpy;
-let SiteControllerIndexSpy;
-let SiteControllerContactSpy;
+let SiteControllerAbout;
+let SiteControllerIndex;
+let SiteControllerContact;
 
 if (SiteController.About){
-  SiteControllerAboutSpy = sinon.spy(SiteController, "About")  
+  SiteControllerAbout = sinon.spy(SiteController, "About")  
 };
 if (SiteController.Index){
-  SiteControllerIndexSpy = sinon.spy(SiteController, "Index")
+  SiteControllerIndex = sinon.spy(SiteController, "Index")
 };
 if (SiteController.Contact){
-  SiteControllerContactSpy = sinon.spy(SiteController, "Contact")  
+  SiteControllerContact = sinon.spy(SiteController, "Contact")  
 };
 
 const app = require('../server');
@@ -31,102 +31,120 @@ chai.use(chaiHttp);
 chai.use(sinonChai);
 
 describe("SiteController.js", function(){  
-  it("defines an Index function on SiteController", function(){
-    expect(SiteController.Index).to.be.a("function")
-  })
+
 
   describe("GET / routing to SiteController.Index", function(){
-    it("routes '/' to SiteController.Index", function(done){
+    it("defines an Index function on SiteController in 'controllers/SiteController.js'", function(){
+      expect(SiteController.Index, "Did you define SiteController.Index? Did you export SiteController?")
+          .to.be.a("function");
+    })   
+     
+    it("routes '/' to SiteController.Index in app.js", function(done){
       chai.request(app)
         .get("/")
         .end(function(err, res){  
-          expect(SiteControllerIndexSpy).to.have.been.calledOnce
-          SiteControllerIndexSpy.restore()
+          expect(SiteControllerIndex, "Is app.get('/') handled by SiteController.Index?")
+              .to.have.been.calledOnce;
+
+          SiteControllerIndex.restore()
           done();
         }); 
     })
-  })
 
-  describe("GET / routing to SiteController.Index", function(){
-    it("routes '/' to SiteController.Index", function(done){
+    it("SiteController.Index renders site/index.ejs", function(done){
       const spy = sinon.spy(app, 'render');
       
       chai.request(app)
         .get("/")
         .end(function(err, res){
-          const viewRendered = spy.getCall(0).args[0];
-      
-          expect(viewRendered).to.be.eql('site/index');
+          const renderCalls = spy.getCall(0)
+          expect(renderCalls, "Does resp render site/index.ejs?")
+               .to.not.be.null
+
+          const viewRendered = renderCalls.args[0];
+          expect(viewRendered, "You sure you are resp.render('site/index')?").to.be.eql('site/index');
       
           spy.restore();
           done()
         });
-    })
+    })    
   })
 
-  it("defines an About function on SiteController", function(){
-    expect(SiteController.About).to.be.a("function")
-  })
+
 
   describe("GET / routing to SiteController.About", function(){
-    it("routes '/about' to SiteController.About", function(done){
+    it("defines an About function on SiteController", function(){
+      expect(SiteController.About, "Did you define SiteController.About?")
+           .to.be.a("function")
+    })    
+
+    it("routes '/about' to SiteController.About in app.js", function(done){
       chai.request(app)
         .get("/about")
         .end(function(err, res){  
-          expect(SiteControllerAboutSpy).to.have.been.calledOnce
-          SiteControllerAboutSpy.restore()
+          expect(SiteControllerAbout, "Is app.get('/about') handled by SiteController.About?")
+              .to.have.been.calledOnce
+          SiteControllerAbout.restore()
           done();
         }); 
     })
-  })
-
-  describe("GET /about routing to SiteController.About", function(){
-    it("routes '/about' to SiteController.About", function(done){
+    
+    it("SiteController.About renders site/about.ejs", function(done){
       const spy = sinon.spy(app, 'render');
-      
+
       chai.request(app)
         .get("/about")
         .end(function(err, res){
-          const viewRendered = spy.getCall(0).args[0];
+          const renderCalls = spy.getCall(0)
+          expect(renderCalls, "Does resp render site/about.ejs?")
+               .to.not.be.null
+
+          const viewRendered = renderCalls.args[0];      
+          expect(viewRendered, "You sure you are resp.render('site/about.ejs')?")
+              .to.be.eql('site/about');
       
-          expect(viewRendered).to.be.eql('site/about');
+          spy.restore();
+          done()
+        });
+    })    
+  })
+
+  describe("GET /contact routing to SiteController.Contact", function(){
+    it("defines an Contact function on SiteController", function(){
+      expect(SiteController.Contact, "Did you define SiteController.Contact?")
+           .to.be.a("function")
+    })
+
+    it("routes '/about' to SiteController.Contact in app.js", function(done){
+      chai.request(app)
+        .get("/about")
+        .end(function(err, res){  
+          expect(SiteControllerContact, "Is app.get('/contact') handled by SiteController.Contact?")
+              .to.have.been.calledOnce
+          SiteControllerContact.restore()
+          done();
+        }); 
+    })
+    
+    it("SiteController.Contact renders site/contact.ejs", function(done){
+      const spy = sinon.spy(app, 'render');
+      
+      chai.request(app)
+        .get("/contact")
+        .end(function(err, res){
+          const renderCalls = spy.getCall(0)
+          expect(renderCalls, "Does resp render site/contact.ejs?")
+               .to.not.be.null
+
+          const viewRendered = renderCalls.args[0];      
+          expect(viewRendered, "You sure you are resp.render('site/contact.ejs')?")
+              .to.be.eql('site/contact');
       
           spy.restore();
           done()
         });
     })
-  })  
 
-  it("defines an Contact function on SiteController", function(){
-    expect(SiteController.Contact).to.be.a("function")
-  })
-
-  describe("GET /contact routing to SiteController.Contact", function(){
-    it("routes '/contact' to SiteController.Contact", function(done){
-      chai.request(app)
-        .get("/contact")
-        .end(function(err, res){  
-          expect(res.text).to.contain("Contact Page")
-          done();
-        }); 
-    })
-  })
-
-  describe("GET /contact routing to SiteController.Contact", function(){
-    it("routes '/contact' to SiteController.Contact", function(done){
-      const spy = sinon.spy(app, 'render');
-      
-      chai.request(app)
-        .get("/contact")
-        .end(function(err, res){
-          const viewRendered = spy.getCall(0).args[0];
-      
-          expect(viewRendered).to.be.eql('site/contact');
-      
-          spy.restore();
-          done()
-        });
-    })
   })
 
 })
